@@ -35,8 +35,8 @@ page = st.sidebar.selectbox("Choose a Page", ["About", "Diagnose", "Articles"])
 
 # Function to download the model and weights from Google Drive
 def download_files():
-    model_url = 'https://drive.google.com/file/d/1zpTMgXiAgvlH8c7mJy_LAn69c2eOdACb/view?usp=sharing'
-    weights_url = 'https://drive.google.com/file/d/1BaCvfS5uOzZ92Idxzt9SX2-iJrro0dAt/view?usp=sharing'  # Replace with actual weights file ID
+    model_url = 'https://drive.google.com/uc?id=1zpTMgXiAgvlH8c7mJy_LAn69c2eOdACb'
+    weights_url = 'https://drive.google.com/uc?id=1BaCvfS5uOzZ92Idxzt9SX2-iJrro0dAt'
 
     # Downloading the model and weights
     gdown.download(model_url, 'my_modelvgg19.keras', quiet=False)
@@ -49,11 +49,12 @@ def load_vgg_model():
         download_files()  # Ensure files are downloaded
         model = load_model('my_modelvgg19.keras')  
         model.load_weights('vgg_unfrozen_weights.weights.h5')  # Load weights
-        st.write(" ")
+        st.write("Model and weights loaded successfully!")
         return model
     except Exception as e:
         st.write(f"Error loading model or weights: {e}")
         return None
+
 
 # Function to make predictions with the model
 def predict(image_path, model):
