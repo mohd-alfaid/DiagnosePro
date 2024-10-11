@@ -5,4 +5,5 @@ numpy==1.24.3  # Compatible with TensorFlow
 gdown==4.7.1
 streamlit-lottie==0.0.2
 requests==2.31.0
-Pillow==10.0.0  # For image handling
+Pillow>=7.1.0,<10.0.0
+ # For image handling
