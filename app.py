@@ -162,13 +162,15 @@ if page == "Diagnose":
             except Exception as e:
                 st.write(f"Error during processing: {e}")
 
-        # Add an animated sticker related to the diagnosis
-        brain_animation = load_lottie_local("/Users/mohdalfaid/Desktop/brain/brain_json/brain.json")  # Make sure this path is correct
+        # Google Drive se animated sticker download karna
+        gdown.download("https://drive.google.com/uc?id=1nSydHl3uPXO1UJ15AWNSN55XIHWL6fFU", "brain.json", quiet=False)
+
+        # Load Lottie animation function
+        brain_animation = load_lottie_local("brain.json")  # Local path after downloading
         if brain_animation:
             st_lottie(brain_animation, key="brain_lottie", height=300, width=300)
         else:
             st.write("Brain animation failed to load.")
-
 # ----------------------------------- Articles Page -----------------------------------
 elif page == "Articles":
     st.title("Learn More About Brain Tumors")
@@ -177,7 +179,7 @@ elif page == "Articles":
     lottie_brain = load_lottieurl("https://assets7.lottiefiles.com/packages/lf20_cfnluqlz.json")
     if lottie_brain:
         st_lottie(lottie_brain, height=300, key="brain_tumor_animation")
-    
+
     st.subheader("Explore articles related to brain tumors, diagnosis, and treatments.")
 
     # Article 1: Understanding Brain Tumors
@@ -189,7 +191,7 @@ elif page == "Articles":
             st.markdown(
                 """
                 Brain tumors are abnormal growths of cells in the brain. While some brain tumors are benign, others can be cancerous. The risk factors, symptoms, and treatment options for brain tumors can vary depending on their type and location. Early diagnosis can improve outcomes.
-                
+
                 Learn more about:
                 - The different types of brain tumors (benign and malignant)
                 - Symptoms that may indicate a brain tumor
@@ -199,9 +201,13 @@ elif page == "Articles":
                 [Learn More](https://www.mayoclinic.org/diseases-conditions/brain-tumor/symptoms-causes/syc-20350084#:~:text=A%20brain%20tumor%20can%20form,headaches%2C%20nausea%20and%20balance%20problems.)
                 """
             )
+            # Google Drive se image download karna
+            gdown.download("https://drive.google.com/uc?id=1QdRSPa0eOYaFwhO5aPBJa3piIih4RjBB", "understanding.jpg", quiet=False)
+
+        # Load the image in Streamlit
         with cols[1]:
             st.image(
-                "/Users/mohdalfaid/Desktop/brain/images/understanding.jpg",  # Placeholder image URL
+                "understanding.jpg",  # Local path after downloading
                 caption="What is Brain Tumor",
                 use_column_width=True,
             )
@@ -210,8 +216,12 @@ elif page == "Articles":
     with st.container():
         cols = st.columns(2)
         with cols[0]:
+            # Google Drive se image download karna
+            gdown.download("https://drive.google.com/uc?id=1MY4s6v76u3rLs1A0hxiqvcR4Uqnwwzlb", "treatment.jpg", quiet=False)
+
             st.image(
-               "/Users/mohdalfaid/Desktop/brain/images/treatment.jpg",               caption="Brain Tumor Diagnosis and Treatment",
+                "treatment.jpg",  # Local path after downloading
+                caption="Brain Tumor Diagnosis and Treatment",
                 use_column_width=True,
             )
         with cols[1]:
@@ -242,18 +252,26 @@ elif page == "Articles":
                 [Learn More](https://www.cancer.gov/types/brain/research)
                 """
             )
+            # Google Drive se image download karna
+            gdown.download("https://drive.google.com/uc?id=1__mW3HdYzVF5LtLUoPqbrRKEkaH0dmsM", "Advances.jpg", quiet=False)
+
+        # Load the image in Streamlit
         with cols[1]:
             st.image(
-            "/Users/mohdalfaid/Desktop/brain/images/Advances.jpg",              caption="Advancements in  Brain Tumor Treatments",
+                "Advances.jpg",  # Local path after downloading
+                caption="Advancements in Brain Tumor Treatments",
                 use_column_width=True,
             )
 
     # Article 4: Living with a Brain Tumor
     with st.container():
+        # Google Drive se image download karna
+        gdown.download("https://drive.google.com/uc?id=12IbyW82-rInHuc9KrjSVWBEP55vgiRLH", "living.jpg", quiet=False)
+
         cols = st.columns(2)
         with cols[0]:
             st.image(
-                "/Users/mohdalfaid/Desktop/brain/images/living.jpg",
+                "living.jpg",  # Local path after downloading
                 caption="Living with a Brain Tumor",
                 use_column_width=True,
             )
@@ -274,6 +292,9 @@ elif page == "Articles":
 
     # Article 5: Pediatric Brain Tumors
     with st.container():
+        # Google Drive se image download karna
+        gdown.download("https://drive.google.com/uc?id=1yX8u0e6HzTamdZNHl8MhvgjUf7Y3wnq1", "Pediatric.jpg", quiet=False)
+
         cols = st.columns(2)
         with cols[0]:
             st.header("Pediatric Brain Tumors")
@@ -291,7 +312,7 @@ elif page == "Articles":
             )
         with cols[1]:
             st.image(
-                "/Users/mohdalfaid/Desktop/brain/images/Pediatric.jpg",
+                "Pediatric.jpg",  # Local path after downloading
                 caption="Pediatric Brain Tumors",
                 use_column_width=True,
             )
