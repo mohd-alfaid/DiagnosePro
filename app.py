@@ -1,13 +1,13 @@
 import requests
-import json  # Import JSON module
+import json
 import streamlit as st
 import numpy as np
 from keras.models import load_model
 from keras.preprocessing import image
 import os
-import gdown  # Import gdown for downloading files
-from streamlit_lottie import st_lottie  # Import streamlit-lottie
-import tensorflow as tf  # Make sure to import tensorflow
+import gdown
+from streamlit_lottie import st_lottie
+import tensorflow as tf
 
 # Function to load Lottie animation from a URL
 def load_lottieurl(url):
@@ -18,8 +18,12 @@ def load_lottieurl(url):
 
 # Function to load Lottie animation from a local JSON file
 def load_lottie_local(file_path):
-    with open(file_path, 'r') as f:
-        return json.load(f)
+    try:
+        with open(file_path, 'r') as f:
+            return json.load(f)
+    except Exception as e:
+        st.write(f"Error loading Lottie file: {e}")
+        return None
 
 # Set up the Streamlit page configuration
 st.set_page_config(
@@ -30,6 +34,7 @@ st.set_page_config(
 )
 
 # Sidebar Navigation to switch between pages
+# Sidebar Navigation
 st.sidebar.title("NAVIGATION")
 page = st.sidebar.selectbox("Choose a Page", ["About", "Diagnose", "Articles"])
 
@@ -38,44 +43,38 @@ def download_files():
     model_url = 'https://drive.google.com/uc?id=1zpTMgXiAgvlH8c7mJy_LAn69c2eOdACb'
     weights_url = 'https://drive.google.com/uc?id=1BaCvfS5uOzZ92Idxzt9SX2-iJrro0dAt'
 
-    # Downloading the model and weights
-    gdown.download(model_url, 'my_modelvgg19.keras', quiet=False)
-    gdown.download(weights_url, 'vgg_unfrozen_weights.weights.h5', quiet=False)
+    try:
+        gdown.download(model_url, 'my_modelvgg19.keras', quiet=False)
+        gdown.download(weights_url, 'vgg_unfrozen_weights.weights.h5', quiet=False)
+    except Exception as e:
+        st.write(f"Error downloading files: {e}")
+
 
 # Function to load the VGG model
-@st.cache_resource  # Cache the model to avoid reloading on every interaction
+@st.cache_resource
 def load_vgg_model():
     try:
-        download_files()  # Ensure files are downloaded
-        model = load_model('my_modelvgg19.keras')  
-        model.load_weights('vgg_unfrozen_weights.weights.h5')  # Load weights
+        download_files()
+        model = load_model('my_modelvgg19.keras')
+        model.load_weights('vgg_unfrozen_weights.weights.h5')
         st.write("Model and weights loaded successfully!")
         return model
     except Exception as e:
         st.write(f"Error loading model or weights: {e}")
         return None
 
-
 # Function to make predictions with the model
 def predict(image_path, model):
     try:
-        # Load and preprocess the image (resize and normalize)
         img = image.load_img(image_path, target_size=(240, 240))
         img_array = image.img_to_array(img)
-        img_array = np.expand_dims(img_array, axis=0) / 255.0  # Normalize image
-        
-        st.write(f"Image array shape: {img_array.shape}")  # Log image shape for debugging
-        
-        # Make predictions using the model
+        img_array = np.expand_dims(img_array, axis=0) / 255.0
         predictions = model.predict(img_array)
-        
-        if predictions is None:
-            raise ValueError("Model prediction returned None.")
-        
         return predictions
     except Exception as e:
         st.write(f"Error during prediction: {e}")
         return None
+
 
 # ----------------------------------- About Page -----------------------------------
 if page == "About":
