@@ -5,6 +5,7 @@ import numpy as np
 from keras.models import load_model
 from keras.preprocessing import image
 import os
+import gdown  # Import gdown for downloading files
 from streamlit_lottie import st_lottie  # Import streamlit-lottie
 import tensorflow as tf  # Make sure to import tensorflow
 
@@ -32,20 +33,27 @@ st.set_page_config(
 st.sidebar.title("NAVIGATION")
 page = st.sidebar.selectbox("Choose a Page", ["About", "Diagnose", "Articles"])
 
+# Function to download the model and weights from Google Drive
+def download_files():
+    model_url = 'https://drive.google.com/file/d/1zpTMgXiAgvlH8c7mJy_LAn69c2eOdACb/view?usp=sharing'
+    weights_url = 'https://drive.google.com/file/d/1BaCvfS5uOzZ92Idxzt9SX2-iJrro0dAt/view?usp=sharing'  # Replace with actual weights file ID
+
+    # Downloading the model and weights
+    gdown.download(model_url, 'my_modelvgg19.keras', quiet=False)
+    gdown.download(weights_url, 'vgg_unfrozen_weights.weights.h5', quiet=False)
+
 # Function to load the VGG model
 @st.cache_resource  # Cache the model to avoid reloading on every interaction
 def load_vgg_model():
     try:
-        # Loading the full model
-        model = load_model('/Users/mohdalfaid/Desktop/brain/model/my_modelvgg19.keras')
-  
-        model.load_weights('/Users/mohdalfaid/Desktop/vgg_unfrozen_weights.weights.h5')  # Load weights
+        download_files()  # Ensure files are downloaded
+        model = load_model('my_modelvgg19.keras')  
+        model.load_weights('vgg_unfrozen_weights.weights.h5')  # Load weights
         st.write(" ")
         return model
     except Exception as e:
         st.write(f"Error loading model or weights: {e}")
         return None
-
 
 # Function to make predictions with the model
 def predict(image_path, model):
@@ -115,35 +123,7 @@ if page == "About":
         with cols[1]:
             st_lottie(lottie_healthy, height=300, key="healthy")
 
-
 # ----------------------------------- DiagnosePro Page -----------------------------------
-import os
-import numpy as np
-import streamlit as st
-
-# Function to load the VGG model
-def load_vgg_model():
-    try:
-        # Update this with the actual path to your model
-        model = load_model('/Users/mohdalfaid/Desktop/brain/model/my_modelvgg19.keras')
-        return model
-    except Exception as e:
-        st.error(f"Error loading model: {e}")
-        return None
-
-# Function to load Lottie animations
-def load_lottie_local(file_path):
-    try:
-        with open(file_path, 'r') as f:
-            return json.load(f)
-    except FileNotFoundError:
-        st.error(f"File not found: {file_path}")
-        return None
-    except json.JSONDecodeError:
-        st.error(f"Error decoding JSON from: {file_path}")
-        return None
-
-# Main application code
 if page == "Diagnose":
     st.title("DiagnosePro - Brain Tumor Detection")
 
