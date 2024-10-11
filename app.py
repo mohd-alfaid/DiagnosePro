@@ -9,16 +9,6 @@ import gdown
 from streamlit_lottie import st_lottie
 import tensorflow as tf
 
-# Set up the Streamlit page configuration with theme
-st.set_page_config(
-    page_title="DIAGNOSEPRO - Brain Tumor Detection",
-    page_icon="🧠",
-    layout="wide",
-    initial_sidebar_state="expanded",
-)
-
- 
-
 # Function to load Lottie animation from a URL
 def load_lottieurl(url):
     r = requests.get(url)
@@ -35,7 +25,16 @@ def load_lottie_local(file_path):
         st.write(f"Error loading Lottie file: {e}")
         return None
 
+# Set up the Streamlit page configuration
+st.set_page_config(
+    page_title="DIAGNOSEPRO - Brain Tumor Detection",
+    page_icon="🧠",
+    layout="wide",
+    initial_sidebar_state="expanded",
+)
+
 # Sidebar Navigation to switch between pages
+# Sidebar Navigation
 st.sidebar.title("NAVIGATION")
 page = st.sidebar.selectbox("Choose a Page", ["About", "Diagnose", "Articles"])
 
@@ -49,6 +48,7 @@ def download_files():
         gdown.download(weights_url, 'vgg_unfrozen_weights.weights.h5', quiet=False)
     except Exception as e:
         st.write(f"Error downloading files: {e}")
+
 
 # Function to load the VGG model
 @st.cache_resource
@@ -75,12 +75,14 @@ def predict(image_path, model):
         st.write(f"Error during prediction: {e}")
         return None
 
+
 # ----------------------------------- About Page -----------------------------------
 if page == "About":
     lottie_welcome = load_lottieurl("https://assets1.lottiefiles.com/packages/lf20_puciaact.json")
     lottie_health = load_lottieurl("https://assets2.lottiefiles.com/packages/lf20_5njp3vgg.json")
     lottie_healthy = load_lottieurl("https://assets10.lottiefiles.com/packages/lf20_x1gjdldd.json")
 
+    # Centering the title using Markdown
     st.markdown("<h1 style='text-align: center;'>Welcome to Diagnosepro!</h1>", unsafe_allow_html=True)
     st_lottie(lottie_welcome, height=300, key="welcome")
 
@@ -122,6 +124,16 @@ if page == "About":
             st_lottie(lottie_healthy, height=300, key="healthy")
 
 # ----------------------------------- DiagnosePro Page -----------------------------------
+# Function to download Lottie animation from Google Drive
+def download_lottie(url, local_filename):
+    gdown.download(url, local_filename, quiet=False)
+
+# Function to load Lottie animation from a local file
+def load_lottie_local(filepath):
+    with open(filepath) as f:
+        return json.load(f)
+
+# Your main app logic
 if page == "Diagnose":
     st.title("DiagnosePro - Brain Tumor Detection")
 
@@ -131,23 +143,27 @@ if page == "Diagnose":
     if model is None:
         st.error("Model could not be loaded. Please check the model file paths.")
     else:
+        # Upload an image for tumor detection
         uploaded_file = st.file_uploader("Choose an MRI image for detection", type=["jpg", "jpeg", "png"])
 
         if uploaded_file is not None:
             try:
+                # Save the uploaded image temporarily
                 temp_file_path = os.path.join("/tmp", uploaded_file.name)
                 with open(temp_file_path, "wb") as f:
                     f.write(uploaded_file.getbuffer())
 
+                # Display the uploaded image
                 st.image(uploaded_file, caption='Uploaded MRI Image', use_column_width=True)
 
                 st.write("Classifying the uploaded image...")
 
+                # Make predictions using the loaded model
                 predictions = predict(temp_file_path, model)
 
                 if predictions is not None:
-                    class_labels = ["No Tumor", "Tumor"]  # Assuming a binary classification
-                    predicted_class = np.argmax(predictions)
+                    class_labels = ["No Tumor", "Tumor"]  # Assuming a binary classification: No Tumor or Tumor
+                    predicted_class = np.argmax(predictions)  # Get the index of the highest prediction
                     st.write(f"The model predicts: **{class_labels[predicted_class]}**")
                 else:
                     st.write("Prediction failed.")
@@ -155,10 +171,12 @@ if page == "Diagnose":
             except Exception as e:
                 st.write(f"Error during processing: {e}")
 
+        # Download the Lottie animation
         lottie_url = "https://drive.google.com/uc?id=1nSydHl3uPXO1UJ15AWNSN55XIHWL6fFU"
-        download_lottie(lottie_url, "brain.json")
+        download_lottie(lottie_url, "brain.json")  # Downloading the Lottie JSON file
 
-        brain_animation = load_lottie_local("brain.json")
+        # Load the Lottie animation
+        brain_animation = load_lottie_local("brain.json")  # Local path after downloading
         if brain_animation:
             st_lottie(brain_animation, key="brain_lottie", height=300, width=300)
         else:
