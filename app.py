@@ -201,7 +201,7 @@ elif page == "Articles":
                 [Learn More](https://www.mayoclinic.org/diseases-conditions/brain-tumor/symptoms-causes/syc-20350084#:~:text=A%20brain%20tumor%20can%20form,headaches%2C%20nausea%20and%20balance%20problems.)
                 """
             )
-            # Google Drive se image download karna
+            # Download image from Google Drive
             gdown.download("https://drive.google.com/uc?id=1QdRSPa0eOYaFwhO5aPBJa3piIih4RjBB", "understanding.jpg", quiet=False)
 
         # Load the image in Streamlit
@@ -216,7 +216,7 @@ elif page == "Articles":
     with st.container():
         cols = st.columns(2)
         with cols[0]:
-            # Google Drive se image download karna
+            # Download image from Google Drive
             gdown.download("https://drive.google.com/uc?id=1MY4s6v76u3rLs1A0hxiqvcR4Uqnwwzlb", "treatment.jpg", quiet=False)
 
             st.image(
@@ -252,7 +252,7 @@ elif page == "Articles":
                 [Learn More](https://www.cancer.gov/types/brain/research)
                 """
             )
-            # Google Drive se image download karna
+            # Download image from Google Drive
             gdown.download("https://drive.google.com/uc?id=1__mW3HdYzVF5LtLUoPqbrRKEkaH0dmsM", "Advances.jpg", quiet=False)
 
         # Load the image in Streamlit
@@ -265,7 +265,7 @@ elif page == "Articles":
 
     # Article 4: Living with a Brain Tumor
     with st.container():
-        # Google Drive se image download karna
+        # Download image from Google Drive
         gdown.download("https://drive.google.com/uc?id=12IbyW82-rInHuc9KrjSVWBEP55vgiRLH", "living.jpg", quiet=False)
 
         cols = st.columns(2)
@@ -292,7 +292,7 @@ elif page == "Articles":
 
     # Article 5: Pediatric Brain Tumors
     with st.container():
-        # Google Drive se image download karna
+        # Download image from Google Drive
         gdown.download("https://drive.google.com/uc?id=1yX8u0e6HzTamdZNHl8MhvgjUf7Y3wnq1", "Pediatric.jpg", quiet=False)
 
         cols = st.columns(2)
