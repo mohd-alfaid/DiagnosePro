@@ -124,6 +124,16 @@ if page == "About":
             st_lottie(lottie_healthy, height=300, key="healthy")
 
 # ----------------------------------- DiagnosePro Page -----------------------------------
+# Function to download Lottie animation from Google Drive
+def download_lottie(url, local_filename):
+    gdown.download(url, local_filename, quiet=False)
+
+# Function to load Lottie animation from a local file
+def load_lottie_local(filepath):
+    with open(filepath) as f:
+        return json.load(f)
+
+# Your main app logic
 if page == "Diagnose":
     st.title("DiagnosePro - Brain Tumor Detection")
 
@@ -161,10 +171,11 @@ if page == "Diagnose":
             except Exception as e:
                 st.write(f"Error during processing: {e}")
 
-        # Google Drive se animated sticker download karna
-        gdown.download("https://drive.google.com/uc?id=1nSydHl3uPXO1UJ15AWNSN55XIHWL6fFU", "brain.json", quiet=False)
+        # Download the Lottie animation
+        lottie_url = "https://drive.google.com/uc?id=1nSydHl3uPXO1UJ15AWNSN55XIHWL6fFU"
+        download_lottie(lottie_url, "brain.json")  # Downloading the Lottie JSON file
 
-        # Load Lottie animation function
+        # Load the Lottie animation
         brain_animation = load_lottie_local("brain.json")  # Local path after downloading
         if brain_animation:
             st_lottie(brain_animation, key="brain_lottie", height=300, width=300)
