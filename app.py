@@ -17,19 +17,7 @@ st.set_page_config(
     initial_sidebar_state="expanded",
 )
 
-# Theme configuration
-st.markdown(
-    """
-    <style>
-    [theme]
-    primaryColor="#F63366"
-    backgroundColor="#FCF2E5"
-    secondaryBackgroundColor="#F8E4C7"
-    textColor="#302730"
-    </style>
-    """,
-    unsafe_allow_html=True
-)
+ 
 
 # Function to load Lottie animation from a URL
 def load_lottieurl(url):
