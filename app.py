@@ -103,7 +103,7 @@ if page == "About":
             )
             st.write("##")
             st.write(
-                "[Learn More >](https://www.example.com)"  # Replace with actual link if needed
+                "[Learn More >](https://www.hopkinsmedicine.org/health/conditions-and-diseases/brain-tumor)"  # Replace with actual link if needed
             )
         with right_column:
             st_lottie(lottie_health, height=500, key="check")
