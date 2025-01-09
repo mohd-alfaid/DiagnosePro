@@ -1,1 +1,1 @@
-LINK: https://diagnose-pro.streamlit.app/
+WEB-APP LINK: https://diagnose-pro.streamlit.app/
