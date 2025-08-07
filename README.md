@@ -31,6 +31,21 @@ gdown	Google Drive model file download
 Lottie	Interactive animations
 HTML/CSS (via Streamlit)	Basic layout/styling
 
+
+
+User Interface 
+
+<img width="2560" height="1398" alt="image" src="https://github.com/user-attachments/assets/abd2fb09-346e-4d18-8458-190305beab2a" />
+
+All Sections
+
+<img width="1280" height="692" alt="image" src="https://github.com/user-attachments/assets/2b743def-eb47-4a55-b3fd-70c679aed624" />
+
+Articles 
+
+<img width="1280" height="701" alt="image" src="https://github.com/user-attachments/assets/37eaa9ab-6551-47fe-a9dd-3a7bf8e938b3" />
+
+
 🧪 How It Works
 User uploads an MRI scan via the web interface.
 
@@ -109,5 +124,5 @@ Open-source MRI datasets for model development
 Medical experts and advisors who guided the problem framing
 
 
-<img width="1280" height="699" alt="image" src="https://github.com/user-attachments/assets/68f7ac00-0bba-4dd7-b1a3-0ebb91f01449" />
+
 
